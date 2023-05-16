@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,42 +46,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CircleItem()
-            }
-
-
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun CircleItem() {
-    val counter = remember {
-        mutableStateOf(0)
-    }
-    val color = remember {
-        mutableStateOf(Color.Blue)
-    }
-
-    Box(
-        modifier = Modifier
-            .size(100.dp)
-            .background(color = color.value, shape = CircleShape)
-            .clickable {
-                when(++counter.value) {
-                    10 -> color.value = Color.Red
+                itemsIndexed(listOf("Item 1", "End", "Mnemonic")) { index, item ->
+                    Text(
+                        text = "Item $index + $item",
+                        fontSize = 30.sp,
+                        modifier = Modifier.padding(vertical = 12.dp)
+                    )
                 }
-            },
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = counter.value.toString(),
-            style = TextStyle(color = Color.White, fontSize = 20.sp)
-        )
+            }
+        }
     }
 }
