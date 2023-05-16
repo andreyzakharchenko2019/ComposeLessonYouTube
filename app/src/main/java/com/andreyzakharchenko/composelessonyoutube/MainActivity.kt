@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -46,17 +47,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LazyColumn(
+            LazyRow(
                 modifier = Modifier
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxWidth()
+                    .background(Color.Gray)
             ) {
-                itemsIndexed(listOf("Item 1", "End", "Mnemonic")) { index, item ->
-                    Text(
-                        text = "Item $index + $item",
-                        fontSize = 30.sp,
-                        modifier = Modifier.padding(vertical = 12.dp)
+                itemsIndexed(
+                    listOf(
+                        ItemRowModel(R.drawable.man, "John"),
+                        ItemRowModel(R.drawable.ic_launcher_foreground, "Michle")
                     )
+                ) { _, item ->
+                    ItemRow(item = item)
                 }
             }
         }
